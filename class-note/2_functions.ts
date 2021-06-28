@@ -17,8 +17,8 @@ function sum(a: number, b: number): number {
 // sum(10, 20, 30, 40);
 
 // 함수의 옵셔널 파라미터 (선택적 파라미터)   => ? 물음표로 선언한다 !!!
-function log(a: string, b?: string, c?: string) {
+function logs(a: string, b?: string, c?: string) {
 
 }
-log('hello world')
-log('hello ts', 'abc')
+logs('hello world')
+logs('hello ts', 'abc')
