@@ -30,24 +30,42 @@ function fetchTodos(): object[] {
 }
 
 function addTodo(todo: Todo): void {
+  console.log(`Add Todo ${todo.id} ${todo.title}`)
   todoItems.push(todo);
 }
 
-function deleteTodo(index: number): void {
-  todoItems.splice(index, 1);
+function deleteTodo(id: number): void {
+  console.log(`Delete Todo ID: ${id}`)
+  todoItems.splice(findIndexById(id), 1);
 }
 
-function completeTodo(index: number, todo: Todo) {
-  todo.done = true;
-  todoItems.splice(index, 1, todo);
+function completeTodo(id: number) {
+  console.log(`Complete Todo ID: ${id}`)
+  // 함수형으로 불러와서 수정.
+  // todo.done = true;
+  // todoItems.splice(id, 1, todo);
+
+  getItemById(id).done = true;
+}
+
+function getItemById(id: number): Todo {
+  return todoItems.filter(item => item.id === id)[0];
+}
+
+function findIndexById(id: number): number {
+  for (let i = 0; i < todoItems.length; i++) {
+    if (todoItems[i].id === id) return i;
+  }
+
+  return -1;
 }
 
 // business logic
-function logFirstTodo(): object {
+function logFirstTodo(): Todo {
   return todoItems[0];
 }
 
-function showCompleted(): object[] {
+function showCompleted(): Todo[] {
   return todoItems.filter(item => item.done);
 
   // ES5 버전풀이.
@@ -58,20 +76,9 @@ function showCompleted(): object[] {
   // });
 }
 
-// TODO: 아래 함수의 내용을 채워보세요. 아래 함수는 `addTodo()` 함수를 이용하여 2개의 새 할 일을 추가하는 함수입니다.
 function addTwoTodoItems(): void {
-  // addTodo() 함수를 두 번 호출하여 todoItems에 새 할 일이 2개 추가되어야 합니다.
-  const item1 = {
-    id: 4,
-    title: '아이템 4',
-    done: false
-  };
-  addTodo(item1);
-  addTodo({
-    id: 5,
-    title: '아이템 5',
-    done: false
-  });
+  addTodo({ id: 10, title: "hello", done: false });
+  addTodo({ id: 11, title: "mello", done: false });
 }
 
 // NOTE: 유틸 함수
@@ -81,4 +88,9 @@ function log(): void {
 
 todoItems = fetchTodoItems();
 addTwoTodoItems();
+console.log(getItemById(10));
+completeTodo(10);
+completeTodo(11);
+console.log(showCompleted());
+deleteTodo(10);
 log();
