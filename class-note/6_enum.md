@@ -1,4 +1,4 @@
-#TS enum
+# TS enum
 
 ## enum
 - 자바의 enum과 비슷하다.
