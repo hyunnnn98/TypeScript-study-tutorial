@@ -1,3 +1,11 @@
+// ES5
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+var capt = new Person('캡틴', 100);
+
 // ES2015 (ES6)
 class Person {
     // 클래스 로직
