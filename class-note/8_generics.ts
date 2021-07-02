@@ -46,3 +46,19 @@ const a = printText('a');
 // a.split('') -> err => union type를 사용하여, string인지 number인지 구분을 못하고 있음.
 // a  -> 자료형이 여전히 string 과 number 를 추적하고 있다. ( 반환값에 대한 문제를 해결하지 못함 )
 printText(10);
+printText(a);
+
+function sayText<T>(argText: T): T {
+    console.log(argText);
+    return argText;
+}
+
+// 제네릭을 사용함으로써 부문별한 함수의 재선언 행위 + 반환값에 대한 문제 모두 해결하였다.
+const str = sayText<string>('abc');
+str.split('').reverse().join();
+
+const login = sayText<boolean>(true);
+login.valueOf();
+
+const grade = sayText<number>(100);
+grade.toFixed();
