@@ -7,7 +7,7 @@
 // logText('하이');    // 문자열 하이
 // logText(true);      // 진위값 true
 
-function logText<T>(text: T):T {
+function logText<T>(text: T): T {
     console.log(text);
     return text;
 }
@@ -62,3 +62,19 @@ login.valueOf();
 
 const grade = sayText<number>(100);
 grade.toFixed();
+
+// 인터페이스에 제네릭을 선언하는 방법
+// interface Dropdown {
+//     value: string;
+//     selected: boolean;
+// }
+
+// const obj: Dropdown = { value: 'abc', selected: false };
+
+interface Dropdown<T> {
+    value: T;
+    selected: boolean;
+}
+
+const firstObj: Dropdown<string> = { value: 'abc', selected: false };
+const secondObj: Dropdown<number> = { value: 123, selected: false };
