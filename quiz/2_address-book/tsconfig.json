@@ -8,7 +8,10 @@
       "dom",
       "dom.iterable"
     ],
-    "noImplicitAny": false
+    // 엄격한 관리 모드 ON...
+    "noImplicitAny": true,
+    "strict": true,
+    "strictFunctionTypes": true
   },
   "include": [
     "./src/**/*"

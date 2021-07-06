@@ -1,5 +1,5 @@
 interface PhoneNumberDictionary {
-  [phone: string]: {
+  [key: string]: {
     num: number;
   };
 }
@@ -11,10 +11,9 @@ interface Contact {
 }
 
 // api
-// TODO: 아래 함수의 반환 타입을 지정해보세요.
-function fetchContacts() {
-  // TODO: 아래 변수의 타입을 지정해보세요.
-  const contacts = [
+// Promise 반환 타입으로 선언 + interface 활용 ( Generic type )
+function fetchContacts(): Promise<Contact[]> {
+  const contacts: Contact[] = [
     {
       name: 'Tony',
       address: 'Malibu',
@@ -63,36 +62,36 @@ class AddressBook {
     this.fetchData();
   }
 
-  fetchData() {
+  fetchData(): void {
     fetchContacts().then(response => {
       this.contacts = response;
     });
   }
 
   /* TODO: 아래 함수들의 파라미터 타입과 반환 타입을 지정해보세요 */
-  findContactByName(name) {
+  findContactByName(name: string): Contact[] {
     return this.contacts.filter(contact => contact.name === name);
   }
 
-  findContactByAddress(address) {
+  findContactByAddress(address: string): Contact[] {
     return this.contacts.filter(contact => contact.address === address);
   }
 
-  findContactByPhone(phoneNumber, phoneType: string) {
+  findContactByPhone(phoneNumber: number, phoneType: string): Contact[] {
     return this.contacts.filter(
       contact => contact.phones[phoneType].num === phoneNumber
     );
   }
 
-  addContact(contact) {
+  addContact(contact: Contact): void {
     this.contacts.push(contact);
   }
 
-  displayListByName() {
+  displayListByName(): Contact[] {
     return this.contacts.map(contact => contact.name);
   }
 
-  displayListByAddress() {
+  displayListByAddress(): Contact[] {
     return this.contacts.map(contact => contact.address);
   }
   /* ------------------------------------------------ */
