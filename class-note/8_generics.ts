@@ -105,3 +105,21 @@ logTextLength('a');
 logTextLength({ length: 10 });
 
 // logTextLength(10);  err 'number' 형식의 인수는 'LengthType' 형식의 매개 변수에 할당될 수 없습니다.
+
+// 🎃 제네릭 타입 제한 3 - keyof
+interface ShoppingItem {
+    name: string;
+    price: number;
+    stock: number;
+}
+
+// ShoppingItem 의 "key 중에 한가지"가 제네릭이 된다. ( "name" or "price" or "stock" )
+function getShoppingItemOption<T extends keyof ShoppingItem>(itemOption: T): T {
+    return itemOption;
+}
+
+// getShoppingItemOption(10);
+// getShoppingItemOption<string>('a');
+
+// key의 이름만 들어갈 수 있다!!!!
+getShoppingItemOption("name");
