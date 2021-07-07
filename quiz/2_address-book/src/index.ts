@@ -4,10 +4,23 @@ interface PhoneNumberDictionary {
   };
 }
 
+// 🎃상기의 인터페이스로 선언한 버전에 키 값을 enum으로 제한하기 위해 "타입 별칭"을 사용하였음!!
+// type PhoneNumberDictionary = {
+//   [P in PhoneType]: {
+//     num: number;
+//   };
+// };
+
 interface Contact {
   name: string;
   address: string;
   phones: PhoneNumberDictionary;
+}
+
+enum PhoneType {
+  Home = 'home',
+  Office = 'office',
+  Studio = 'studio',
 }
 
 // api
@@ -55,8 +68,7 @@ function fetchContacts(): Promise<Contact[]> {
 
 // main
 class AddressBook {
-  // TODO: 아래 변수의 타입을 지정해보세요.
-  contacts = [];
+  contacts: Contact[] = [];
 
   constructor() {
     this.fetchData();
@@ -68,7 +80,6 @@ class AddressBook {
     });
   }
 
-  /* TODO: 아래 함수들의 파라미터 타입과 반환 타입을 지정해보세요 */
   findContactByName(name: string): Contact[] {
     return this.contacts.filter(contact => contact.name === name);
   }
@@ -77,7 +88,9 @@ class AddressBook {
     return this.contacts.filter(contact => contact.address === address);
   }
 
-  findContactByPhone(phoneNumber: number, phoneType: string): Contact[] {
+  // home, office, studio -> 제한된 문자열의 집합을 이용할때는 'enum'을 활용하자!!!
+  // 실무에서도 많이 쓰인다. ( 안정된 코드를 작성하기 위해 )
+  findContactByPhone(phoneNumber: number, phoneType: PhoneType): Contact[] {
     return this.contacts.filter(
       contact => contact.phones[phoneType].num === phoneNumber
     );
@@ -87,11 +100,11 @@ class AddressBook {
     this.contacts.push(contact);
   }
 
-  displayListByName(): Contact[] {
+  displayListByName(): string[] {
     return this.contacts.map(contact => contact.name);
   }
 
-  displayListByAddress(): Contact[] {
+  displayListByAddress(): string[] {
     return this.contacts.map(contact => contact.address);
   }
   /* ------------------------------------------------ */
