@@ -110,4 +110,10 @@ class AddressBook {
   /* ------------------------------------------------ */
 }
 
+const div = document.querySelector('div') as HTMLDivElement; // HTMLDivElement | null
+// div.innerHTML; as HTMLDivElement 가 없으면 에러 발생함.
+
+if (div) {
+  div.innerHTML;
+}
 new AddressBook();
