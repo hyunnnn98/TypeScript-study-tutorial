@@ -24,3 +24,15 @@ if ((tony as Developer).skill) {
     const age = (tony as Person).age;
     console.log(age);
 }
+
+// 타입 가드 정의
+// 타입 가드를 선언할때 함수는 보통 is 로 시작함!
+function isDeveloper(target: Developer | Person): target is Developer {
+    return (target as Developer).skill !== undefined;
+}
+
+if (isDeveloper(tony)) {
+    console.log(tony.skill);
+} else {
+    console.log(tony.age);
+}
