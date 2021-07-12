@@ -1,27 +1,4 @@
-interface PhoneNumberDictionary {
-  [key: string]: {
-    num: number;
-  };
-}
-
-// 🎃상기의 인터페이스로 선언한 버전에 키 값을 enum으로 제한하기 위해 "타입 별칭"을 사용하였음!!
-// type PhoneNumberDictionary = {
-//   [P in PhoneType]: {
-//     num: number;
-//   };
-// };
-
-interface Contact {
-  name: string;
-  address: string;
-  phones: PhoneNumberDictionary;
-}
-
-enum PhoneType {
-  Home = 'home',
-  Office = 'office',
-  Studio = 'studio',
-}
+import { Contact, PhoneType } from './types';
 
 // api
 // Promise 반환 타입으로 선언 + interface 활용 ( Generic type )
