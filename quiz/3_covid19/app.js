@@ -1,3 +1,5 @@
+//@ts-check
+
 // utils
 function $(selector) {
   return document.querySelector(selector);
@@ -36,7 +38,16 @@ function createSpinnerElement(id) {
 let isDeathLoading = false;
 let isRecoveredLoading = false;
 
+/**
+ * @typedef {object} CovidSummary
+ * @property {Array<object>} Country
+ */
+
 // api
+/**
+ * 임시방편으로 JSDoc를 적용해서 점진적 타입 시스템 적용하기.
+ * @returns {Promise<CovidSummary>} 
+ */
 function fetchCovidSummary() {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
