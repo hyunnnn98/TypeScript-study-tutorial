@@ -1,5 +1,3 @@
-//@ts-check
-
 // utils
 function $(selector) {
   return document.querySelector(selector);
@@ -44,10 +42,6 @@ let isRecoveredLoading = false;
  */
 
 // api
-/**
- * 임시방편으로 JSDoc를 적용해서 점진적 타입 시스템 적용하기.
- * @returns {Promise<CovidSummary>} 
- */
 function fetchCovidSummary() {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
