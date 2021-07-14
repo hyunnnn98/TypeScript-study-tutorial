@@ -14,10 +14,12 @@
 - [type-assertion](./class-note/10_type-assertion.md)
 - [type-compatiblity](./class-note/12_type-compatiblity.ts)
 - [utility-type](./class-note/13_utility-type.ts)
+- [mapped-type](./class-note/14_mapped-type.ts)
 
 ## ✅ 실습
 - [TodoList - 함수 구현, enum을 이용한 타입 정의](./quiz/1_todo/src/index.ts)
 - [Promise를 이용한 API 함수 타입 정의](./quiz/2_address-book/src/index.ts)
+- [코로나 세계 현황판 만들기](./quiz/3_covid19/README.md)
 
 ## 🤔 interface와 type은 어떻게 정의해서 쓰나요?
 - 인터페이스는 extends 키워드로 확장 가능. 타입 별칭은 유니온, 인터섹션과 같은 연산자로 확장 가능

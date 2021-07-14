@@ -1,3 +1,8 @@
+// 라이브러리 로딩
+import axios from 'axios';
+import { ChartConfiguration } from 'chart.js';
+import Chart from 'chart.js/auto';
+
 // utils
 function $(selector: string) {
   return document.querySelector(selector);
@@ -181,24 +186,46 @@ async function setupData() {
 }
 
 function renderChart(data: any, labels: any) {
-  const ctx = $('#lineChart').getContext('2d');
-  Chart.defaults.global.defaultFontColor = '#f5eaea';
-  Chart.defaults.global.defaultFontFamily = 'Exo 2';
-  new Chart(ctx, {
+  const lineChart = $('#lineChart') as HTMLCanvasElement;
+  const ctx = lineChart.getContext('2d') as CanvasRenderingContext2D;
+
+  const chartDataset = {
+    labels,
+    datasets: [
+      {
+        label: 'Confirmed for the last two weeks',
+        backgroundColor: '#feb72b',
+        borderColor: '#feb72b',
+        data,
+      },
+    ],
+  };
+
+  const chartConfig: ChartConfiguration = {
     type: 'line',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Confirmed for the last two weeks',
-          backgroundColor: '#feb72b',
-          borderColor: '#feb72b',
-          data,
-        },
-      ],
-    },
+    data: chartDataset,
     options: {},
-  });
+  };
+
+  new Chart(ctx, chartConfig);
+
+  // Chart.defaults.global.defaultFontColor = '#f5eaea';
+  // Chart.defaults.global.defaultFontFamily = 'Exo 2';
+  // new Chart(ctx, {
+  //   type: 'line',
+  //   data: {
+  //     labels,
+  //     datasets: [
+  //       {
+  //         label: 'Confirmed for the last two weeks',
+  //         backgroundColor: '#feb72b',
+  //         borderColor: '#feb72b',
+  //         data,
+  //       },
+  //     ],
+  //   },
+  //   options: {},
+  // });
 }
 
 function setChartData(data: any) {
