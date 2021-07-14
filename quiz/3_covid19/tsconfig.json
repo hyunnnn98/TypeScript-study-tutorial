@@ -8,9 +8,14 @@
             "ES2015",
             "DOM",
             "DOM.Iterable"
-        ]
+        ],
+        "noImplicitAny": true
     },
     "include": [
         "./src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
     ]
 }
