@@ -12,11 +12,32 @@
     - [x] 자바스크립트 파일을 타입스크립트 파일로 변환
     - [x] `tsc` 명령어로 타입스크립트 컴파일 하기
 2. 명시적인 `any` 선언하기
+   - 프로젝트 테스트 코드가 통과하는지 확인
    - `tsconfig.json` 파일에 `noImplicitAny` 값을 `true` 로 추가
    - 가능한한 구체적인 타입으로 타입 정의
+     - 라이브러리를 쓰는 경우 DefinitelyTyped에서 `@types` 관련 라이브러리를 찾아서 설치
+     - 만약, 타입을 정하기 어려운 곳이 있으면 명시적이라도 `any` 를 선언
+   - 수정한 테스트 코드가 통과하는지 확인 (기존 기능 동작 확인)
 3. 프로젝트 환경 구성
    - babel, eslint, prettier 등의 환경 설정
 4. 외부 라이브러리 모듈화 
+5. `strict` 옵션 추가 후 타입 정의
+   - 타입스크립트 설정 파일에 아래 설정을 추가하기
+   ```ts
+   // tsconfig.json
+   // strict 아래의 옵션들은 `strict` 옵션을 true로 했을 때 자동으로 추가되는 값이다.
+   {
+      "strict": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "strictBindCallApply": true,
+      "strictPropertyInitialization": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true,
+   }
+   ```
+   - `any`로 되어 있는 타입을 최대한 더 적절한 타입으로 변환
+   - `as`와 같은 키워드를 최대한 사용하지 않도록 고민해서 변경
 
 ## 참고 자료
 

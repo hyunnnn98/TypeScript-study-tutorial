@@ -13,7 +13,7 @@ import {
 } from './covid';
 
 // utils
-function $(selector: string): Element {
+function $(selector: string): Element | null {
   return document.querySelector(selector);
 }
 function getUnixTimestamp(date: Date | string | number): number {
@@ -25,9 +25,9 @@ const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
 const deathsTotal = $('.deaths') as HTMLParagraphElement;
 const recoveredTotal = $('.recovered') as HTMLParagraphElement;
 const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
-const rankList = $('.rank-list');
-const deathsList = $('.deaths-list');
-const recoveredList = $('.recovered-list');
+const rankList = $('.rank-list') as HTMLOListElement;
+const deathsList = $('.deaths-list') as HTMLOListElement;
+const recoveredList = $('.recovered-list') as HTMLOListElement;
 const deathSpinner = createSpinnerElement('deaths-spinner');
 const recoveredSpinner = createSpinnerElement('recovered-spinner');
 
@@ -62,7 +62,7 @@ function fetchCovidSummary(): Promise<AxiosPromise<CovidSummaryResponse>> {
 }
 
 function fetchCountryInfo(
-  countryName: string,
+  countryName: string | undefined,
   status: CovidStatus
 ): Promise<AxiosPromise<CountrySummaryResponse>> {
   // status params: confirmed, recovered, deaths
@@ -78,6 +78,9 @@ function startApp(): void {
 
 // events
 function initEvents(): void {
+  if (!rankList) {
+    return;
+  }
   rankList.addEventListener('click', handleListClick);
 }
 
@@ -86,13 +89,15 @@ function initList(): void {
   clearRecoveredList();
 }
 
-async function handleListClick(event: MouseEvent) {
+async function handleListClick(event: Event) {
   let selectedId;
   if (
     event.target instanceof HTMLParagraphElement ||
     event.target instanceof HTMLSpanElement
   ) {
-    selectedId = event.target.parentElement.id;
+    selectedId = event.target.parentElement
+      ? event.target.parentElement.id
+      : undefined;
   }
   if (event.target instanceof HTMLLIElement) {
     selectedId = event.target.id;
@@ -139,16 +144,16 @@ function setDeathsList(data: CountrySummaryResponse): void {
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
-    deathsList.appendChild(li);
+    deathsList!.appendChild(li);
   });
 }
 
 function clearDeathList(): void {
-  deathsList.innerHTML = null;
-}
-
-function clearRecoveredList(): void {
-  recoveredList.innerHTML = null;
+  // 이렇게 반복적으로 null 처리를 하고싶지 않다면, 타입 단언을 통해 미리 정의하자.
+  if (!deathsList) {
+    return;
+  }
+  deathsList.innerHTML = '';
 }
 
 function setTotalDeathsByCountry(data: CountrySummaryResponse): void {
@@ -170,8 +175,14 @@ function setRecoveredList(data: CountrySummaryResponse) {
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
-    recoveredList.appendChild(li);
+    // 🤔 아래에 쓰인 ? 는
+    // 옵셔널 체이닝 오퍼레이터 (option chaning operator)
+    recoveredList?.appendChild(li);
   });
+}
+
+function clearRecoveredList(): void {
+  recoveredList.innerHTML = '';
 }
 
 function setTotalRecoveredByCountry(data: CountrySummaryResponse): void {
