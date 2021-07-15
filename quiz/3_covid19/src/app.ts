@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ChartConfiguration } from 'chart.js';
 import Chart from 'chart.js/auto';
+import { AxiosPromise } from 'axios';
 
 // utils
 function $(selector: string) {
@@ -46,8 +47,16 @@ const isRecoveredLoading = false;
  * @property {Array<object>} Country
  */
 
+// 🤔 보통은 별도의 API 타입에 대해서는 파일을 만들고, import export 를 통해 가져온다!
+interface CovidSummaryResponse {
+  Countries: any[];
+  Date: string;
+  Global: any;
+  Message: string;
+}
+
 // api
-function fetchCovidSummary() {
+function fetchCovidSummary(): Promise<AxiosPromise<CovidSummaryResponse>> {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
 }
