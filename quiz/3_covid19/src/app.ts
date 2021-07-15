@@ -13,18 +13,18 @@ import {
 } from './covid';
 
 // utils
-function $(selector: string): Element | null {
-  return document.querySelector(selector);
+function $<T extends HTMLElement = HTMLDivElement>(selector: string) {
+  const element = document.querySelector(selector);
+  return element as T;
 }
 function getUnixTimestamp(date: Date | string | number): number {
   return new Date(date).getTime();
 }
 
 // DOM
-const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
-const deathsTotal = $('.deaths') as HTMLParagraphElement;
-const recoveredTotal = $('.recovered') as HTMLParagraphElement;
-const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
+const confirmedTotal = $<HTMLSpanElement>('.confirmed-total');
+const deathsTotal = $<HTMLParagraphElement>('.deaths');
+const lastUpdatedTime = $<HTMLParagraphElement>('.last-updated-time');
 const rankList = $('.rank-list') as HTMLOListElement;
 const deathsList = $('.deaths-list') as HTMLOListElement;
 const recoveredList = $('.recovered-list') as HTMLOListElement;
